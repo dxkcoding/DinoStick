@@ -130,26 +130,6 @@ function execCmdHandle(slot: Slot, ChosenByte: number): number {
 
 //% weight=0 color=#f58f98 icon="\uf0ac" block="DinoStick"
 namespace DinoStick {
-    //% blockId="Temp_Humi" block="Get %temp_humi from %slot"
-    export function getTempHumi(slot: Slot, temp_humi: TempHumi): number {
-        switch (temp_humi) {
-            case 0x1: return execCmdReturn(slot, "get_temp");
-            case 0x2: return execCmdReturn(slot, "get_humi");
-            default: return 2;
-        }
-    }
-    //% blockId="potential_value" block="Get Potential Value from %slot"
-    export function getPoten(slot: Slot): number {
-        return execCmdReturn16(slot, "get_poten_val");
-    }
-    //% blockId="light_value" block="Get Light Value from %slot"
-    export function getLight(slot: Slot): number {
-        return execCmdReturn16(slot, "get_light_val");
-    }
-    //% blockId="Microphone_value" block="Get Microphone Value from %slot"
-    export function getMicrophone(slot: Slot): number {
-        return execCmdReturn16(slot, "get_mic_val");
-    }
     //% blockId="Handle_Button_State" block="Get Handle %handle_button State from %slot"
     export function getHandleButton(slot: Slot, handle_button: HandleButton): boolean {
         if (execCmdHandle(slot, handle_button) > 0) {
@@ -180,14 +160,7 @@ namespace DinoStick {
     export function getTouchState(slot: Slot): boolean {
         return execCmdReturnBool(slot, "get_touch");
     }
-    //% blockId="Led_ON" block="Set LED ON in %slot"
-    export function LedON(slot: Slot): void {
-        execCmd(slot, "set_led_on");
-    }
-    //% blockId="Led_OFF" block="Set LED OFF in %slot"
-    export function LedOFF(slot: Slot): void {
-        execCmd(slot, "set_led_off");
-    }
+
     //% blockId="set_time" block="Set Time in %slot as "
     export function setTime(slot: Slot, year: number, month: number, day: number, h: number, m: number, s: number): void {
         execCmd(slot, "setT" + String.fromCharCode(year) + String.fromCharCode(month) + String.fromCharCode(day) + String.fromCharCode(h) + String.fromCharCode(m) + String.fromCharCode(s));
@@ -283,5 +256,37 @@ namespace DinoStick {
             }
         }
         //basic.pause(15);
+    }
+    //% blockId="Temp_Humi" block="Get %temp_humi from %slot"
+    export function getTempHumi(temp_humi: TempHumi, slot: Slot): number {
+        switch (temp_humi) {
+            case 0x1: return execCmdReturn(slot, "get_temp");
+            case 0x2: return execCmdReturn(slot, "get_humi");
+            default: return 2;
+        }
+    }
+    //% blockId="light_value" block="Get Light Value from %slot"
+    export function getLight(slot: Slot): number {
+        return execCmdReturn16(slot, "get_light_val");
+    }
+    //% blockId="Microphone_value" block="Get Microphone Value from %slot"
+    export function getMicrophone(slot: Slot): number {
+        return execCmdReturn16(slot, "get_mic_val");
+    }
+    //% blockId="potential_value" block="Get Potential Value from %slot"
+    export function getPoten(slot: Slot): number {
+        return execCmdReturn16(slot, "get_poten_val");
+    }
+    //% blockID="Led_Colors"  block="Set LED Color in %slot with R %r G %g B %b"
+    export function LedColor(slot: Slot, r: number, g: number, b: number):void{
+        execCmd(slot, "setC" + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b))
+    }
+    //% blockId="Led_OFF" block="Set LED OFF in %slot"
+    export function LedOFF(slot: Slot): void {
+        execCmd(slot, "set_led_off");
+    }
+    //% blockId="Led_ON" block="Set LED ON in %slot"
+    export function LedON(slot: Slot): void {
+        execCmd(slot, "set_led_on");
     }
 } 
