@@ -201,11 +201,7 @@ namespace DinoStick {
         execCmd(slot, 'conA' + String.fromCharCode(Math.abs(angle)));
         //basic.pause(1000);
     }
-    //% blockId="setup_neo" block="Setup Neo in %slot"
-    export function setupNeo(slot: Slot, neo_grps: Neo_grps): void {
-        execCmd(slot, "init1" + String.fromCharCode(neo_grps));
-        basic.pause(10);
-    }
+
     //% blockId="set_neo_pixel_color" block="Set Neo NO.%pos Pixel's Color to (r:%r ,g:%g ,b:%b ) in %slot"
     //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
     export function setNeoPixelColor(slot: Slot, pos: number, r: number, g: number, b: number): void {
@@ -227,7 +223,11 @@ namespace DinoStick {
         execCmd(slot, "rnbl" + String.fromCharCode(0) + String.fromCharCode(t) + String.fromCharCode(x) + String.fromCharCode(n));
         basic.pause(10);
     }
-
+    //% blockId="setup_neo" block="Setup Neo %Neo_grps in %slot "
+    export function setupNeo(slot: Slot, neo_grps: Neo_grps): void {
+        execCmd(slot, "init1" + String.fromCharCode(neo_grps));
+        basic.pause(10);
+    }
 
     
     //% blockId="Handle_Button_State" block="Get Handle %handle_button State from %slot"
