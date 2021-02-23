@@ -145,8 +145,8 @@ namespace DinoStick {
     export function getTouchState(slot: Slot): boolean {
         return execCmdReturnBool(slot, "get_touch");
     }
-
     //% blockId="set_time" block="Set Time in %slot as "
+    //% inlineInputMode=inline
     export function setTime(slot: Slot, year: number, month: number, day: number, h: number, m: number, s: number): void {
         execCmd(slot, "setT" + String.fromCharCode(year) + String.fromCharCode(month) + String.fromCharCode(day) + String.fromCharCode(h) + String.fromCharCode(m) + String.fromCharCode(s));
     }
@@ -209,9 +209,15 @@ namespace DinoStick {
     //% inlineInputMode=inline
     export function setNeoRainbow(t: Animation_Type, x: number, n: number, slot: Slot ): void {
         switch (t){
-            case 0x1 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "N" + String.fromCharCode(x) + String.fromCharCode(n));
-            case 0x2 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "H" + String.fromCharCode(x) + String.fromCharCode(n));
-            case 0x3 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "O" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 0x1 : 
+                execCmd(slot, "rnbl" + String.fromCharCode(0) + "N" + String.fromCharCode(x) + String.fromCharCode(n));
+                break;
+            case 0x2 : 
+                execCmd(slot, "rnbl" + String.fromCharCode(0) + "H" + String.fromCharCode(x) + String.fromCharCode(n));
+                break;
+            case 0x3 : 
+                execCmd(slot, "rnbl" + String.fromCharCode(0) + "O" + String.fromCharCode(x) + String.fromCharCode(n));
+                break;
         }
         basic.pause(10);
     }
@@ -239,9 +245,15 @@ namespace DinoStick {
     //% blockId="setup_neo" block="Setup Neo %Neo_grps in %slot "
     export function setupNeo(neo_grps: Neo_grps, slot: Slot): void {
         switch(neo_grps){
-            case 0x1 : execCmd(slot, "init1" + "R");
-            case 0x2 : execCmd(slot, "init1" + "A");
-            case 0x3 : execCmd(slot, "init1" + "B");
+            case 0x1 : 
+                execCmd(slot, "init1" + "R");
+                break;
+            case 0x2 : 
+                execCmd(slot, "init1" + "A");
+                break;
+            case 0x3 : 
+                execCmd(slot, "init1" + "B");
+                break;
         }
         basic.pause(10);
     }
