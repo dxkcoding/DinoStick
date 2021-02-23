@@ -1,1 +1,1 @@
-<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id=".WK],(jW@wwHq.)K/=np" x="0" y="0"><statement name="HANDLER"><block type="setup_neo" id="iE*Z5zoHPO=Kzk6H,5Xq"><field name="Neo_grps">Slot.SlotA</field><field name="slot">Neo_grps.Ring24</field></block></statement></block></xml>
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id="SAq3t8jHM2;iVgsH$umD" x="0" y="0"/></xml>

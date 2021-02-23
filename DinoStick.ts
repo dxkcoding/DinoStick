@@ -66,19 +66,21 @@ enum HandleAxis {
 }
 
 enum Neo_grps {
-    //% block="Ring_24"
-    Ring24 = 1,
-    //% block="Array_99"
-    Array99 = 2,
-    //% block="Belt_30"
-    Belt30 = 3
+    //% block="Ring"
+    Ring = 1,
+    //% block="Array"
+    Array = 2,
+    //% block="Belt"
+    Belt = 3
 }
 
 enum Animation_Type {
-    //% block="Rainbaw"
-    Rainbaw = 0,
-    //% block="Shinelon"
-    Shinelon = 1
+    //% block="Rainbow"
+    Rainbow = 0,
+    //% block="Chameleon"
+    Chameleon = 1,
+    //% block="Confetti"
+    Confetti = 2
 }
 
 function bufferFromString(s: string): Buffer {
@@ -202,30 +204,45 @@ namespace DinoStick {
         //basic.pause(1000);
     }
 
-    //% blockId="set_neo_pixel_color" block="Set Neo NO.%pos Pixel's Color to (r:%r ,g:%g ,b:%b ) in %slot"
-    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
-    export function setNeoPixelColor(slot: Slot, pos: number, r: number, g: number, b: number): void {
-        execCmd(slot, "setP" + String.fromCharCode(0) + String.fromCharCode(pos) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
-        basic.pause(10);
-    }
-    //% blockId="set_neo_array99_color" block="Set Neo Array99 Pixel's Color at (X:%x ,Y:%y ) to (r:%r ,g:%g ,b:%b ) in %slot"
-    export function setNeoArray99Color(slot: Slot, x: number, y: number, r: number, g: number, b: number): void {
-        execCmd(slot, "setX" + String.fromCharCode(0) + String.fromCharCode(x) + String.fromCharCode(y) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
+
+    //% blockId="set_neo_rainbow" block="Set Neo Rainbow %t at Position %x with Lenth %n in %slot"
+    //% inlineInputMode=inline
+    export function setNeoRainbow(t: Animation_Type, x: number, n: number, slot: Slot ): void {
+        switch (t){
+            case 0 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "N" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 1 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "H" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 2 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "O" + String.fromCharCode(x) + String.fromCharCode(n));
+        }
         basic.pause(10);
     }
     //% blockId="fill_neo_color" block="Fill Neo with Color of (r:%r ,g:%g ,b:%b ) in %slot"
-    export function fillNeoColor(slot: Slot, r: number, g: number, b: number): void {
+    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255  
+    //% inlineInputMode=inline
+    export function fillNeoColor(r: number, g: number, b: number, slot: Slot): void {
         execCmd(slot, "fill" + String.fromCharCode(0) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
         basic.pause(10);
     }
-    //% blockId="set_neo_rainbpow" block="Set Neo Rainbow %t at Position %x with Lenth %n in %slot"
-    export function setNeoRainbow(slot: Slot, t: Animation_Type, x: number, n: number): void {
-        execCmd(slot, "rnbl" + String.fromCharCode(0) + String.fromCharCode(t) + String.fromCharCode(x) + String.fromCharCode(n));
+    //% blockId="set_neo_array_color" block="Set Neo Array Pixel's Color at (X:%x ,Y:%y ) to (r:%r ,g:%g ,b:%b ) in %slot"
+    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255 X.min=0 X.max=5 Y.min=0 Y.max=5 
+    //% inlineInputMode=inline
+    export function setNeoArrayColor(x: number, y: number, r: number, g: number, b: number, slot: Slot): void {
+        execCmd(slot, "setX" + String.fromCharCode(0) + String.fromCharCode(x) + String.fromCharCode(y) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
+        basic.pause(10);
+    }
+    //% blockId="set_neo_pixel_color" block="Set Neo NO.%pos Pixel's Color to |[r:%r ,g:%g ,b:%b] in %slot"
+    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
+    //% inlineInputMode=inline
+    export function setNeoPixelColor(pos: number, r: number, g: number, b: number, slot: Slot): void {
+        execCmd(slot, "setP" + String.fromCharCode(0) + String.fromCharCode(pos) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
         basic.pause(10);
     }
     //% blockId="setup_neo" block="Setup Neo %Neo_grps in %slot "
-    export function setupNeo(slot: Slot, neo_grps: Neo_grps): void {
-        execCmd(slot, "init1" + String.fromCharCode(neo_grps));
+    export function setupNeo(neo_grps: Neo_grps, slot: Slot): void {
+        switch(neo_grps){
+            case 1:execCmd(slot, "init1" + "R");
+            case 2:execCmd(slot, "init1" + "A");
+            case 3:execCmd(slot, "init1" + "B");
+        }
         basic.pause(10);
     }
 
