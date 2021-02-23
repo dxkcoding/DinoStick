@@ -67,20 +67,20 @@ enum HandleAxis {
 
 enum Neo_grps {
     //% block="Ring"
-    Ring = 1,
+    Ring = 0x1,
     //% block="Array"
-    Array = 2,
+    Array = 0x2,
     //% block="Belt"
-    Belt = 3
+    Belt = 0x3
 }
 
 enum Animation_Type {
     //% block="Rainbow"
-    Rainbow = 0,
+    Rainbow = 0x1,
     //% block="Chameleon"
-    Chameleon = 1,
+    Chameleon = 0x2,
     //% block="Confetti"
-    Confetti = 2
+    Confetti = 0x3
 }
 
 function bufferFromString(s: string): Buffer {
@@ -209,9 +209,9 @@ namespace DinoStick {
     //% inlineInputMode=inline
     export function setNeoRainbow(t: Animation_Type, x: number, n: number, slot: Slot ): void {
         switch (t){
-            case 0 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "N" + String.fromCharCode(x) + String.fromCharCode(n));
-            case 1 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "H" + String.fromCharCode(x) + String.fromCharCode(n));
-            case 2 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "O" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 0x1 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "N" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 0x2 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "H" + String.fromCharCode(x) + String.fromCharCode(n));
+            case 0x3 : execCmd(slot, "rnbl" + String.fromCharCode(0) + "O" + String.fromCharCode(x) + String.fromCharCode(n));
         }
         basic.pause(10);
     }
@@ -239,9 +239,9 @@ namespace DinoStick {
     //% blockId="setup_neo" block="Setup Neo %Neo_grps in %slot "
     export function setupNeo(neo_grps: Neo_grps, slot: Slot): void {
         switch(neo_grps){
-            case 1:execCmd(slot, "init1" + "R");
-            case 2:execCmd(slot, "init1" + "A");
-            case 3:execCmd(slot, "init1" + "B");
+            case 0x1 : execCmd(slot, "init1" + "R");
+            case 0x2 : execCmd(slot, "init1" + "A");
+            case 0x3 : execCmd(slot, "init1" + "B");
         }
         basic.pause(10);
     }
