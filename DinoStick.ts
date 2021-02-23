@@ -277,7 +277,7 @@ namespace DinoStick {
     export function getPoten(slot: Slot): number {
         return execCmdReturn16(slot, "get_poten_val");
     }
-    //% blockID="Led_Colors"  block="Set LED Color in %slot with R %r G %g B %b"
+    //% blockID="Led_Colors"  block="Set LED Color in %slot with R %r (0-255) G %g (0-255) B %b (0-255)"
     export function LedColor(slot: Slot, r: number, g: number, b: number):void{
         execCmd(slot, "setC" + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b))
     }
