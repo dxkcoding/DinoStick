@@ -130,23 +130,6 @@ function execCmdHandle(slot: Slot, ChosenByte: number): number {
 
 //% weight=0 color=#f58f98 icon="\uf0ac" block="DinoStick"
 namespace DinoStick {
-    //% blockId="Handle_Button_State" block="Get Handle %handle_button State from %slot"
-    export function getHandleButton(slot: Slot, handle_button: HandleButton): boolean {
-        if (execCmdHandle(slot, handle_button) > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    //% blockId="Handle_Axis" block="Get %handle_axis from %slot"
-    export function getHandleAxis(slot: Slot, handle_axis: HandleAxis): number {
-        return execCmdHandle(slot, handle_axis);
-    }
-    //% blockId="Distance_Value" block="Get Distance Value from %slot"
-    export function getDistance(slot: Slot): number {
-        return execCmdReturn16(slot, "get_distance_val");
-    }
     //% blockId="BMP_Data" block="Get %bmpdatatype from %slot"
     export function getBMPData(slot: Slot, bmpdatatype: BMPDataType): number {
         switch (bmpdatatype) {
@@ -224,6 +207,7 @@ namespace DinoStick {
         basic.pause(10);
     }
     //% blockId="set_neo_pixel_color" block="Set Neo NO.%pos Pixel's Color to (r:%r ,g:%g ,b:%b ) in %slot"
+    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
     export function setNeoPixelColor(slot: Slot, pos: number, r: number, g: number, b: number): void {
         execCmd(slot, "setP" + String.fromCharCode(0) + String.fromCharCode(pos) + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b));
         basic.pause(10);
@@ -242,6 +226,26 @@ namespace DinoStick {
     export function setNeoRainbow(slot: Slot, t: Animation_Type, x: number, n: number): void {
         execCmd(slot, "rnbl" + String.fromCharCode(0) + String.fromCharCode(t) + String.fromCharCode(x) + String.fromCharCode(n));
         basic.pause(10);
+    }
+
+
+    
+    //% blockId="Handle_Button_State" block="Get Handle %handle_button State from %slot"
+    export function getHandleButton(slot: Slot, handle_button: HandleButton): boolean {
+        if (execCmdHandle(slot, handle_button) > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    //% blockId="Handle_Axis" block="Get %handle_axis from %slot"
+    export function getHandleAxis(slot: Slot, handle_axis: HandleAxis): number {
+        return execCmdHandle(slot, handle_axis);
+    }
+    //% blockId="Distance_Value" block="Get Distance Value from %slot"
+    export function getDistance(slot: Slot): number {
+        return execCmdReturn16(slot, "get_distance_val");
     }
     //% blockId="oled_clear" block="OLED in %slot clear screen"
     export function oledClearScreen(slot: Slot): void {
@@ -269,6 +273,7 @@ namespace DinoStick {
     export function getLight(slot: Slot): number {
         return execCmdReturn16(slot, "get_light_val");
     }
+    basic.showNumber(0)
     //% blockId="Microphone_value" block="Get Microphone Value from %slot"
     export function getMicrophone(slot: Slot): number {
         return execCmdReturn16(slot, "get_mic_val");
@@ -277,7 +282,9 @@ namespace DinoStick {
     export function getPoten(slot: Slot): number {
         return execCmdReturn16(slot, "get_poten_val");
     }
-    //% blockID="Led_Colors"  block="Set LED Color in %slot with R %r (0-255) G %g (0-255) B %b (0-255)"
+    //% blockID="Led_Colors"  block="Set LED Color in %slot with R %r  G %g  B %b "
+    //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
+    //% inlineInputMode=inline
     export function LedColor(slot: Slot, r: number, g: number, b: number):void{
         execCmd(slot, "setC" + String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b))
     }
