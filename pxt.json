@@ -12,7 +12,8 @@
         "main.blocks",
         "main.ts",
         "DinoStick.ts",
-        "_locales/zh/DinoStick-strings.json"
+        "_locales/zh/DinoStick-strings.json",
+        "_locales/zh-ch/DinoStick-strings.json"
     ],
     "testFiles": [
         "test.ts"

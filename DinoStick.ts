@@ -141,16 +141,13 @@ namespace DinoStick {
             default: return 1;
         }
     }
-    //% blockId="Touch_State" block="Get Touch State from %slot"
-    export function getTouchState(slot: Slot): boolean {
-        return execCmdReturnBool(slot, "get_touch");
-    }
+
     //% blockId="set_time" block="Set Time in %slot as "
     //% inlineInputMode=inline
     export function setTime(slot: Slot, year: number, month: number, day: number, h: number, m: number, s: number): void {
         execCmd(slot, "setT" + String.fromCharCode(year) + String.fromCharCode(month) + String.fromCharCode(day) + String.fromCharCode(h) + String.fromCharCode(m) + String.fromCharCode(s));
     }
-    //% blockId="get_time" block="Get %datetimeoption in %slot as "
+    /*//% blockId="get_time" block="Get %datetimeoption in %slot as "
     export function getTime(slot: Slot, datetimeoption: DateTimeOption): string {
         pins.i2cWriteBuffer(slot, bufferFromString("getT"), false);
         let buf = pins.i2cReadBuffer(slot, 6);
@@ -173,7 +170,7 @@ namespace DinoStick {
             case 0x3: return(hour + ':' + minute + ':' + second);
             default: return(year + '-' + month + '-' + day + '  ' + hour + ':' + minute + ':' + second);
         }
-    }
+    }*/
     //% blockId="get_time_single" block="Get %datetimesingleoption in %slot as "
     export function getTimeSingle(slot: Slot, datetimesingleoption: DateTimeSingleOption): number {
         pins.i2cWriteBuffer(slot, bufferFromString("getT"), false);
@@ -188,7 +185,15 @@ namespace DinoStick {
             default: return(buf.getNumber(NumberFormat.Int8BE, 0) - 1);
         }
     }    
+
+    //% blockId="steering_engine" block="Move steering_engine in %slot to Angle %speed"
+    //% speed.min=0 speed.max=270
+    export function SetSteeringEngine(slot: Slot, angle: number): void {
+        execCmd(slot, 'conA' + String.fromCharCode(Math.floor(angle/1.5)));
+        //basic.pause(1000);
+    }
     //% blockId="motor" block="Move Motor in %slot at Speed %speed"
+    //% speed.min=-1023 speed.max=1023
     export function Motor(slot: Slot, speed: number): void {
         if (speed > 0) {
             execCmd(slot, 'getf' + String.fromCharCode(Math.abs(speed)));
@@ -198,12 +203,10 @@ namespace DinoStick {
         }
         //basic.pause(1000);
     }
-    //% blockId="steering_engine" block="Move steering_engine in %slot to Angle %speed"
-    export function SetSteeringEngine(slot: Slot, angle: number): void {
-        execCmd(slot, 'conA' + String.fromCharCode(Math.abs(angle)));
-        //basic.pause(1000);
+    //% blockId="Touch_State" block="Get Touch State from %slot"
+    export function getTouchState(slot: Slot): boolean {
+        return execCmdReturnBool(slot, "get_touch");
     }
-
 
     //% blockId="set_neo_rainbow" block="Set Neo Rainbow %t at Position %x with Lenth %n in %slot"
     //% inlineInputMode=inline
