@@ -132,7 +132,7 @@ function execCmdHandle(slot: Slot, ChosenByte: number): number {
 
 //% weight=0 color=#f58f98 icon="\uf0ac" block="DinoStick"
 namespace DinoStick {
-    //% blockId="BMP_Data" block="Get %bmpdatatype from %slot"
+    /*//% blockId="BMP_Data" block="Get %bmpdatatype from %slot"
     export function getBMPData(slot: Slot, bmpdatatype: BMPDataType): number {
         switch (bmpdatatype) {
             case 0x1: return execCmdReturn16(slot, "getP");
@@ -140,17 +140,13 @@ namespace DinoStick {
             case 0x3: return execCmdReturn16(slot, "getA");
             default: return 1;
         }
-    }
+    }*/
 
-    //% blockId="set_time" block="Set Time in %slot as "
-    //% inlineInputMode=inline
-    export function setTime(slot: Slot, year: number, month: number, day: number, h: number, m: number, s: number): void {
-        execCmd(slot, "setT" + String.fromCharCode(year) + String.fromCharCode(month) + String.fromCharCode(day) + String.fromCharCode(h) + String.fromCharCode(m) + String.fromCharCode(s));
-    }
-    /*//% blockId="get_time" block="Get %datetimeoption in %slot as "
+    //% blockId="get_time" block="Get %datetimeoption in %slot as "
     export function getTime(slot: Slot, datetimeoption: DateTimeOption): string {
         pins.i2cWriteBuffer(slot, bufferFromString("getT"), false);
         let buf = pins.i2cReadBuffer(slot, 6);
+        return buf.getNumber(NumberFormat.Int8BE , 0).toString();
         let yearnumber = buf.getNumber(NumberFormat.Int8BE, 0);
         let year = '';
         if (yearnumber > 10) {
@@ -170,7 +166,7 @@ namespace DinoStick {
             case 0x3: return(hour + ':' + minute + ':' + second);
             default: return(year + '-' + month + '-' + day + '  ' + hour + ':' + minute + ':' + second);
         }
-    }*/
+    }
     //% blockId="get_time_single" block="Get %datetimesingleoption in %slot as "
     export function getTimeSingle(slot: Slot, datetimesingleoption: DateTimeSingleOption): number {
         pins.i2cWriteBuffer(slot, bufferFromString("getT"), false);
@@ -185,6 +181,13 @@ namespace DinoStick {
             default: return(buf.getNumber(NumberFormat.Int8BE, 0) - 1);
         }
     }    
+
+    //% blockId="set_time" block="Set Time in %slot as %year Year %month Month %day Day %h Hour %m Minute %s Second"
+    //% inlineInputMode=inline
+    //% year.min=0 year.max=99 month.min=1 month.max=12 day.min=1 day.max=31 h.min=0 h.max=23 m.min=0 m.max=59 s.min=0 s.max=59
+    export function setTime(slot: Slot, year: number, month: number, day: number, h: number, m: number, s: number): void {
+        execCmd(slot, "setT" + String.fromCharCode(year) + String.fromCharCode(month) + String.fromCharCode(day) + String.fromCharCode(h) + String.fromCharCode(m) + String.fromCharCode(s));
+    }
 
     //% blockId="steering_engine" block="Move steering_engine in %slot to Angle %speed"
     //% speed.min=0 speed.max=270
